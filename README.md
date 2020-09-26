@@ -1,3 +1,19 @@
+## Changes here
+
+Stream to a vidtual video driver.
+
+```
+
+const ffmpeg = child_process.spawn('ffmpeg', [
+        '-i','-',
+        '-r', '5',
+        '-vcodec', 'rawvideo',
+        '-filter_complex' ,'nullsrc=size=640x480 [base]; [0:v]  setpts=PTS-STARTPTS, scale=640x480 [left]; [base][left] overlay=shortest=1,format=yuyv422',
+        '-f', 'v4l2', '/dev/video3'
+      ]);
+
+```
+
 # Streaming to Facebook Live from a `<canvas>`
 
 Facebook provides the [Live API](https://developers.facebook.com/docs/videos/live-video), which allows developers to stream live video content to Facebook from any source that supports an RTMP output.  While typically used with professional hardware and software encoders, it can also be used with web browsers with a little help from a server-side RTMP proxy.
